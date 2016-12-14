@@ -81,11 +81,6 @@ public class Main {
 
         System.out.println("====Clock Assignment====");
 
-//        String[] ids = TimeZone.getAvailableIDs();
-//        for (String id : ids) {
-//            System.out.println(id);
-//        }
-
 
         while (true) {
            // LocalTime timeNow = LocalTime.now();
@@ -94,24 +89,27 @@ public class Main {
 
             ZoneId pacificTZ = ZoneId.of("US/Pacific");
             LocalTime pacificTimeNow = LocalTime.now(pacificTZ);
-            String  pacificNow = "" + pacificTimeNow;
+            //String  pacificNow = "" + pacificTimeNow;
             //System.out.println(pacificNow);
 
             String pacificHtml = getHtml(pacificTimeNow);
+            pacificHtml = pacificHtml.replace("%Clock%", "Pacific Timezone");
 
             ZoneId montainTZ = ZoneId.of("US/Mountain");
             LocalTime mountainTimeNow = LocalTime.now(montainTZ);
-            String mountainNow = "" + mountainTimeNow;
+            //String mountainNow = "" + mountainTimeNow;
            // System.out.println(mountainNow);
 
             String montainHtml = getHtml(mountainTimeNow);
+            montainHtml = montainHtml.replace("%Clock%","Mountain Timezone");
 
             ZoneId centralTZ = ZoneId.of("US/Central");
             LocalTime centralTimeNow = LocalTime.now(centralTZ);
-            String centralNow = "" + centralTimeNow;
+            //String centralNow = "" + centralTimeNow;
             //System.out.println(centralNow);
 
             String centralHtml = getHtml(centralTimeNow);
+            centralHtml = centralHtml.replace("%Clock%", "Central Timezone");
 
             ZoneId easternTZ = ZoneId.of("US/Eastern");
             LocalTime easternTimeNow = LocalTime.now(easternTZ);
@@ -119,6 +117,7 @@ public class Main {
             //System.out.println(easternNow);
 
             String easternHtml = getHtml(easternTimeNow);
+            easternHtml = easternHtml.replace("%Clock%","Eastern Timezone");
 
             String tmp = pacificHtml + montainHtml + centralHtml + easternHtml;
 
@@ -159,6 +158,7 @@ public class Main {
             "</head>\n" +
             "<body>\n" +
             "    <br><br><br>\n" +
+            "    <div align=\"center\"><span style=\"font-size:38\">%Clock%</span></div>\n" +
             "    <div align=\"center\"><span style=\"font-size:48\">%hh%:%mm%:%ss%</span></div>\n" +
             "</body>\n" +
             "</html>\n" +
