@@ -91,49 +91,65 @@ public class Main {
            // LocalTime timeNow = LocalTime.now();
             //System.out.println(timeNow);
 
+
             ZoneId pacificTZ = ZoneId.of("US/Pacific");
             LocalTime pacificTimeNow = LocalTime.now(pacificTZ);
             String  pacificNow = "" + pacificTimeNow;
             //System.out.println(pacificNow);
+
+            String pacificHtml = getHtml(pacificTimeNow);
 
             ZoneId montainTZ = ZoneId.of("US/Mountain");
             LocalTime mountainTimeNow = LocalTime.now(montainTZ);
             String mountainNow = "" + mountainTimeNow;
            // System.out.println(mountainNow);
 
+            String montainHtml = getHtml(mountainTimeNow);
+
             ZoneId centralTZ = ZoneId.of("US/Central");
             LocalTime centralTimeNow = LocalTime.now(centralTZ);
             String centralNow = "" + centralTimeNow;
             //System.out.println(centralNow);
+
+            String centralHtml = getHtml(centralTimeNow);
 
             ZoneId easternTZ = ZoneId.of("US/Eastern");
             LocalTime easternTimeNow = LocalTime.now(easternTZ);
             String easternNow = "" + easternTimeNow;
             //System.out.println(easternNow);
 
-            String hours = "" + centralTimeNow.getHour();
-            //System.out.println(hours);
+            String easternHtml = getHtml(easternTimeNow);
 
-            String minutes = "" + centralTimeNow.getMinute();
-            minutes = StringUtils.leftPad(minutes, 2, "0");
-            //System.out.println(minutes);
-
-            String seconds = "" + centralTimeNow.getSecond();
-            seconds = StringUtils.leftPad(seconds, 2,"0");
-            //System.out.println(seconds);
-
-            String tmp = HTML.replace("%hh%", hours);
-            tmp = tmp.replace("%mm%", minutes);
-            tmp = tmp.replace("%ss%", seconds);
-            //System.out.println(tmp);
+            String tmp = pacificHtml + montainHtml + centralHtml + easternHtml;
 
             try (PrintWriter out = new PrintWriter(new FileWriter("clock.html"))) {
                 out.println(tmp);
                 out.flush();
                 //System.out.println("clock" + tmp);
             }
+
             Thread.sleep(900l);
         }
+    }
+
+    private static String getHtml (LocalTime localTime)  {
+        String hours = "" + localTime.getHour();
+        //System.out.println(hours);
+
+        String minutes = "" + localTime.getMinute();
+        minutes = StringUtils.leftPad(minutes, 2, "0");
+        //System.out.println(minutes);
+
+        String seconds = "" + localTime.getSecond();
+        seconds = StringUtils.leftPad(seconds, 2,"0");
+        //System.out.println(seconds);
+
+        String tmp = HTML.replace("%hh%", hours);
+        tmp = tmp.replace("%mm%", minutes);
+        tmp = tmp.replace("%ss%", seconds);
+        //System.out.println(tmp);
+
+        return tmp;
     }
 
     private static final String HTML = "<html>\n" +
